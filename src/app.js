@@ -56,9 +56,7 @@ window.onload = function() {
     document.getElementById("palo2").textContent = carta.palo;
     //Pinto la carta con el color del palo
     document.getElementById("palo1").className = `display-6 ${colorCarta}`;
-    document.getElementById(
-      "numero"
-    ).className = `display-1 fw-bold ${colorCarta}`;
+    document.getElementById("numero").className = `display-1 ${colorCarta}`;
     document.getElementById("palo2").className = `display-6 ${colorCarta}`;
   }
   document.getElementById("boton1").addEventListener("click", function() {
@@ -66,8 +64,17 @@ window.onload = function() {
     mostrarCarta(carta); // Usamos esa carta en otra función
   });
 
-  /*
-  1) Array de 10 números + array de 3 letras + array de 4 figuras
+  /*****************************************************************************
+   * T E M P O R I Z A D O R
+   ****************************************************************************/
 
-  */
+  let tiempoRestante = 10;
+
+  let contador = 0;
+
+  // // Ejecuta esta función cada 1 segundo (1000ms)
+  // let intervalID = setInterval(function() {
+  //   contador++;
+  //   console.log(`Contador: ${contador}`);
+  // }, 1000);
 };
