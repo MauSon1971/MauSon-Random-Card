@@ -3,26 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello Rigo with Vanilla.js</title>
+    <title>MauSon Random Card Generator</title>
+    <link rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+    integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap"
       rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-      crossorigin="anonymous"
     />
-    <link rel="shortcut icon" href="./4geeks.ico" />
   </head>
-  <body>
-    <div class="container-fluid text-center">
-      <h1 class="mt-5">Hello Rigo!</h1>
-      <img src="./rigo-baby.jpg" />
-      <p class="alert alert-warning mt-4">
-        If this text is <b>not</b> centered and <b>yellow</b>, you probably have
-        an error
-      </p>
-      <div class="fixed-bottom p-4">
-        Made with ❤️ by
-        <a href="https://www.4geeksacademy.com">4Geeks Academy</a>
+
+  <body
+    class="bg-success d-flex justify-content-center align-items-center vh-100"
+  >
+    <div class="baraja me-3">
+      <button class="btn btn-primary mt-3" id="boton1">Generar Carta</button>
+    </div>
+
+    <!-- Contenedor principal de la carta -->
+    <div class="user-card bg-white border border-dark">
+      <div class="container h-100 p-2">
+        <div class="row user-card-top">
+          <div class="col-12 d-flex justify-content-start">
+            <span class="text-danger display-6" id="palo1">♦ ♥ ♠ ♣</span>
+          </div>
+        </div>
+
+        <div class="row user-card-center flex-grow-1">
+          <div class="col-12 d-flex justify-content-center align-items-center">
+            <span class="display-1 text-danger" id="numero">A</span>
+          </div>
+        </div>
+
+        <div class="row user-card-bottom">
+          <div class="col-12 d-flex justify-content-end">
+            <span class="text-danger display-6 rotate" id="palo2">♦ ♥ ♠ ♣</span>
+          </div>
+        </div>
       </div>
     </div>
   </body>

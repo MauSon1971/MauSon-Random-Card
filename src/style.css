@@ -1,1 +1,35 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+
+.rotate {
+  transform: rotate(180deg);
+}
+.user-card {
+  width: 250px;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.container {
+  padding: 0;
+}
+
+.user-card-center {
+  height: 80%;
+}
+
+.user-card-top,
+.user-card-bottom {
+  height: 10%;
+  padding: 0 8px;
+}
+
+#numero {
+  font-size: 100px;
+  font-family: "Roboto Slab", serif;
+}
+
+#palo1,
+#palo2 {
+  font-size: 40px;
+}
