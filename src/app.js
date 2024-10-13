@@ -4,6 +4,7 @@ import "./style.css";
 
 import "./assets/img/rigo-baby.jpg";
 import "./assets/img/4geeks.ico";
+import { start } from "@popperjs/core";
 
 window.onload = function() {
   //write your code here
@@ -55,9 +56,11 @@ window.onload = function() {
     document.getElementById("numero").textContent = carta.numero;
     document.getElementById("palo2").textContent = carta.palo;
     //Pinto la carta con el color del palo
-    document.getElementById("palo1").className = `display-6 ${colorCarta}`;
-    document.getElementById("numero").className = `display-1 ${colorCarta}`;
-    document.getElementById("palo2").className = `display-6 ${colorCarta}`;
+    document.getElementById("palo1").className = `${colorCarta}`;
+    document.getElementById(
+      "numero"
+    ).className = `user-card-number text-danger text-center ${colorCarta}`;
+    document.getElementById("palo2").className = `${colorCarta}`;
   }
   document.getElementById("boton1").addEventListener("click", function() {
     const carta = generaCarta(); // Llamamos a generaCarta para obtener una carta aleatoria
@@ -69,15 +72,53 @@ window.onload = function() {
    ****************************************************************************/
 
   let contador = 0;
+  let timer = null;
+  const timerDisplay = document.getElementById("timer");
 
-  let intervaloSec = setInterval(function() {
-    contador++;
-    console.log(contador);
-    if (contador === 10) {
-      clearInterval(intervaloSec);
-      console.log("Intervalo Detenido.");
-      const carta = generaCarta(); // Llama a generaCarta para obtener una carta aleatoria
-      mostrarCarta(carta); //Pinta la carta en el HTML
-    }
-  }, 1000);
+  //Inicia el reloj, calcula minutos y segundos y los pinta en el html
+  function startTimer() {
+    timer = setInterval(() => {
+      contador++;
+      let minutos = Math.floor(contador / 60)
+        .toString()
+        .padStart(2, "0"); //formula para calcular los minutos y pintarlo "00"
+      let segundos = Math.floor(contador % 60)
+        .toString()
+        .padStart(2, "0"); //Calcula el resto de los minutos(seg) y los pinta "00"
+      timerDisplay.textContent = `${minutos}:${segundos}`;
+      if (contador % 10 === 0) {
+        //Verifico que cada 10 segundos ejecute la condición
+        const carta = generaCarta(); // Obtiene una carta aleatoria
+        mostrarCarta(carta); //Pinta la carta en el HTML
+      }
+    }, 1000);
+  }
+
+  //Detiene el reloj
+  function stopTimer() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  //Configuro el switch para activar el timer
+  document
+    .getElementById("timerControl")
+    .addEventListener("change", function() {
+      if (this.checked) {
+        startTimer();
+        console.log("Se inicia el conteo");
+      } else {
+        stopTimer();
+        console.log("Se detiene el conteo");
+      }
+    });
 };
+
+/*****************************************************************************
+ * T A M A Ñ O  C A R T A
+ ****************************************************************************/
+
+let anchoCarta = null;
+let altoCarta = null;
+
+document.getElementById("btnConfig").addEventListener("click", () => {});
