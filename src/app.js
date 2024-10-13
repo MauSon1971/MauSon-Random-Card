@@ -68,13 +68,16 @@ window.onload = function() {
    * T E M P O R I Z A D O R
    ****************************************************************************/
 
-  let tiempoRestante = 10;
-
   let contador = 0;
 
-  // // Ejecuta esta función cada 1 segundo (1000ms)
-  // let intervalID = setInterval(function() {
-  //   contador++;
-  //   console.log(`Contador: ${contador}`);
-  // }, 1000);
+  let intervaloSec = setInterval(function() {
+    contador++;
+    console.log(contador);
+    if (contador === 10) {
+      clearInterval(intervaloSec);
+      console.log("Intervalo Detenido.");
+      const carta = generaCarta(); // Llama a generaCarta para obtener una carta aleatoria
+      mostrarCarta(carta); //Pinta la carta en el HTML
+    }
+  }, 1000);
 };
