@@ -12,7 +12,7 @@ body {
 }
 
 .vh-30 {
-  height: calc(30vh - 0px);
+  height: calc(30vh - 56px);
 }
 
 .vh-70 {
@@ -72,14 +72,14 @@ body {
 }
 
 #numero {
-  font-size: 8em;
+  font-size: 6em;
   font-family: "Roboto Slab", serif;
   line-height: 1;
 }
 
 #palo1,
 #palo2 {
-  font-size: 3.5em;
+  font-size: 3em;
 }
 
 .rotate {
