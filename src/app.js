@@ -118,7 +118,72 @@ window.onload = function() {
  * T A M A Ñ O  C A R T A
  ****************************************************************************/
 
-let anchoCarta = null;
-let altoCarta = null;
+//Creo un evento para escuchar el cambio en el checkbox "Aspect Ratio"
 
-document.getElementById("btnConfig").addEventListener("click", () => {});
+let anchoInput = document.getElementById("anchoCarta");
+let altoInput = document.getElementById("altoCarta");
+let checkAspectRatio = document.getElementById("checkAspectRatio");
+const aspectRatio = 250 / 350;
+
+checkAspectRatio.addEventListener("change", () => {
+  //Si está activo, genero un evento para escuchar lo que ingresa en los inputs
+  if (checkAspectRatio.checked) {
+    anchoInput.addEventListener("input", ajustarAltoCarta);
+    altoInput.addEventListener("input", ajustarAnchoCarta);
+  } else {
+    // Activo ambos campos para que el usuario pueda ingresar valores
+    anchoInput.removeEventListener("input", ajustarAltoCarta);
+    altoInput.removeEventListener("input", ajustarAnchoCarta);
+    anchoInput.disabled = false;
+    altoInput.disabled = false;
+  }
+});
+
+// Funcion para modificar el ancho de la Carta
+function ajustarAltoCarta() {
+  if (checkAspectRatio.checked && anchoInput.value) {
+    altoInput.disabled = true; //bloqueo el input "alto" al usuario
+    let nuevoAltoCarta = anchoInput.value / aspectRatio; // defino el nuevo alto con el valor de Aspect Ratio
+    altoInput.value = Math.round(nuevoAltoCarta); //Redondeo el valor y lo pinto en el html
+  }
+}
+
+// Funcion para modificar el alto de la Carta
+function ajustarAnchoCarta() {
+  if (checkAspectRatio.checked && altoInput.value) {
+    anchoInput.disabled = true;
+    let nuevoAnchoCarta = anchoInput.value / aspectRatio;
+    anchoInput.value = Math.round(nuevoAnchoCarta);
+  }
+}
+
+// Evento para traer los datos
+document.getElementById("btnConfig").addEventListener("click", () => {
+  let anchoCartaUser = parseInt(anchoInput.value);
+  let altoCartaUser = parseInt(altoInput.value);
+
+  // Aplicamos los cambios de tamaño a la carta
+  const carta = document.querySelector(".user-card");
+  carta.style.width = `${anchoCartaUser}px`;
+  carta.style.height = `${altoCartaUser}px`;
+
+  // Calculamos el nuevo tamaño del texto y símbolos basados en el tamaño de la carta
+  let fontSizeBase = Math.min(anchoCartaUser, altoCartaUser) / 3; // Ajusta el valor según el tamaño de la carta
+  let paloSize = Math.min(anchoCartaUser, altoCartaUser) / 6; // Tamaño relativo para los palos
+
+  // Aplicamos los tamaños ajustados al contenido de la carta
+  document.getElementById("numero").style.fontSize = `${fontSizeBase}px`;
+  document.getElementById("palo1").style.fontSize = `${paloSize}px`;
+  document.getElementById("palo2").style.fontSize = `${paloSize}px`;
+
+  // Reiniciar el formulario
+  document.querySelector("form").reset();
+  anchoInput.disabled = false;
+  altoInput.disabled = false;
+  checkAspectRatio.checked = false;
+
+  // Cerrar el offcanvas (navbar)
+  let offcanvasElement = document.getElementById("offcanvasDarkNavbar");
+  let bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+  bsOffcanvas.hide();
+});
