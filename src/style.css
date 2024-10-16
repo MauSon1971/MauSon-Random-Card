@@ -45,16 +45,12 @@ body {
   flex-grow: 1;
 }
 
-.align-bottom-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
 /* Estilos de la carta */
 .user-card {
   width: 250px;
   height: 350px;
+  max-width: 386px;
+  max-height: 840px;
   overflow: hidden;
   border-radius: 15px;
   border: 2px solid black;

@@ -162,6 +162,13 @@ document.getElementById("btnConfig").addEventListener("click", () => {
   let anchoCartaUser = parseInt(anchoInput.value);
   let altoCartaUser = parseInt(altoInput.value);
 
+  //Limito el ancho y alto de la carta
+
+  if (anchoCartaUser > 386 || altoCartaUser > 840) {
+    alert(`El tamaño maximo permitido es 388px de ancho por 840px de alto`);
+    return;
+  }
+
   // Aplicamos los cambios de tamaño a la carta
   const carta = document.querySelector(".user-card");
   carta.style.width = `${anchoCartaUser}px`;
@@ -170,6 +177,37 @@ document.getElementById("btnConfig").addEventListener("click", () => {
   // Calculamos el nuevo tamaño del texto y símbolos basados en el tamaño de la carta
   let fontSizeBase = Math.min(anchoCartaUser, altoCartaUser) / 3; // Ajusta el valor según el tamaño de la carta
   let paloSize = Math.min(anchoCartaUser, altoCartaUser) / 6; // Tamaño relativo para los palos
+
+  // Aplicamos los tamaños ajustados al contenido de la carta
+  document.getElementById("numero").style.fontSize = `${fontSizeBase}px`;
+  document.getElementById("palo1").style.fontSize = `${paloSize}px`;
+  document.getElementById("palo2").style.fontSize = `${paloSize}px`;
+
+  // Reiniciar el formulario
+  document.querySelector("form").reset();
+  anchoInput.disabled = false;
+  altoInput.disabled = false;
+  checkAspectRatio.checked = false;
+
+  // Cerrar el offcanvas (navbar)
+  let offcanvasElement = document.getElementById("offcanvasDarkNavbar");
+  let bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+  bsOffcanvas.hide();
+});
+
+// Evento para resetear los datos
+document.getElementById("btnReset").addEventListener("click", () => {
+  // Aplicamos los cambios de tamaño a la carta
+  const carta = document.querySelector(".user-card");
+  const anchoOriginal = 250;
+  const altoOriginal = 360;
+
+  carta.style.width = `${anchoOriginal}px`;
+  carta.style.height = `${altoOriginal}px`;
+
+  // Calculamos el nuevo tamaño del texto y símbolos basados en el tamaño de la carta
+  let fontSizeBase = Math.min(anchoOriginal, altoOriginal) / 3; // Ajusta el valor según el tamaño de la carta
+  let paloSize = Math.min(anchoOriginal, altoOriginal) / 6; // Tamaño relativo para los palos
 
   // Aplicamos los tamaños ajustados al contenido de la carta
   document.getElementById("numero").style.fontSize = `${fontSizeBase}px`;
