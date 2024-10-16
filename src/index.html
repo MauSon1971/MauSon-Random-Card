@@ -1,29 +1,130 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello Rigo with Vanilla.js</title>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-      crossorigin="anonymous"
-    />
-    <link rel="shortcut icon" href="./4geeks.ico" />
-  </head>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MauSon Random Card Generator</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+    integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
   <body>
-    <div class="container-fluid text-center">
-      <h1 class="mt-5">Hello Rigo!</h1>
-      <img src="./rigo-baby.jpg" />
-      <p class="alert alert-warning mt-4">
-        If this text is <b>not</b> centered and <b>yellow</b>, you probably have
-        an error
-      </p>
-      <div class="fixed-bottom p-4">
-        Made with ❤️ by
-        <a href="https://www.4geeksacademy.com">4Geeks Academy</a>
+
+    <!-- NAVBAR para la configuración de los parámetros del usuario -->
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">MauSon Card Random Generator</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+          aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasDarkNavbar"
+          aria-labelledby="offcanvasDarkNavbarLabel">
+          <div class="offcanvas-header bg-dark">
+            <h5 class="offcanvas-title text-light" id="offcanvasDarkNavbarLabel">
+              Configuración
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
+          </div>
+          <h6 class="bg-dark text-light m-0 px-3">Ingrese los parámetros:</h6>
+          <div class="offcanvas-body bg-dark">
+            <div class="inputs-container">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="timerControl" />
+                <label class="form-check-label text-light" for="timerControl">Timer ON/OFF</label>
+              </div>
+
+              <form class="d-flex flex-column mt-3">
+                <div class="mb-3">
+                  <label for="basic-url" class="form-label text-light">Ingrese el ancho de la carta</label>
+                  <div class="input-group p-0">
+                    <span class="input-group-text" id="anchoCartaLabel">Ancho:</span>
+                    <input type="text" class="form-control" id="anchoCarta"
+                      aria-describedby="basic-addon3 basic-addon4" />
+                  </div>
+                  <div class="form-text" id="basic-addon4">(Medida estándar; 250px).</div>
+
+                  <label for="basic-url" class="form-label text-light mt-3">Ingrese el alto de la carta</label>
+                  <div class="input-group">
+                    <span class="input-group-text" id="altoCartaLabel">Alto:</span>
+                    <input type="text" class="form-control" id="altoCarta"
+                      aria-describedby="basic-addon3 basic-addon4" />
+                  </div>
+                  <div class="form-text" id="basic-addon4">(Medida estándar; 350px)</div>
+
+                  <div class="form-check text-light mt-3 ms-3">
+                    <input class="form-check-input" type="checkbox" id="checkAspectRatio" />
+                    <label class="form-check-label" for="checkAspectRatio">
+                      Bloquear Aspecto
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Botones "RESET" & "APLICAR" del configurador -->
+            <div class="d-flex justify-content-between mt-auto">
+              <button type="button" class="btn btn-outline-light" id="btnReset">Reset</button>
+              <button type="button" class="btn btn-outline-light" id="btnConfig">Aplicar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container-fluid h-100">
+
+      <!-- Row del timer -->
+      <div class="row vh-30">
+        <div class="col-12 timer-container">
+          <div class="timer" id="timer">00:00</div>
+          <!-- Reloj -->
+        </div>
+      </div>
+
+      <!-- Row de la carta y el botón -->
+      <div class="row vh-70 d-flex flex-column flex-lg-row p-3">
+        <!-- Contenedor de la carta -->
+        <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
+          <div class="user-card bg-white">
+            <div class="user-card-content">
+              <!-- Símbolos en la parte superior -->
+              <div class="user-card-symbols text-danger d-flex justify-content-start">
+                <span id="palo1">♦</span>
+              </div>
+
+              <!-- Número en el centro -->
+              <div class="user-card-number text-danger text-center" id="numero">
+                A
+              </div>
+
+              <!-- Símbolos en la parte inferior (rotados) -->
+              <div class="user-card-symbols text-danger d-flex rotate">
+                <span id="palo2">♦</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenedor del botón -->
+        <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
+          <button class="btn btn-primary mt-3" id="boton1">
+            Generar Carta
+          </button>
+        </div>
       </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
+
 </html>
